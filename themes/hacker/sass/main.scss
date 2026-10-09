@@ -2,11 +2,11 @@
 @import "svg-icons";
 @import "primary-font";
 
-$body-background: $cod-grey !default;
-$body-foreground: $gallery !default;
-$header: $amber !default;
-$blockquote-color: $silver-chalice !default;
-$blockquote-border: $dove-grey !default;
+$body-background: $matrix-bg !default;
+$body-foreground: $matrix-text !default;
+$header: $matrix-green !default;
+$blockquote-color: $matrix-dim !default;
+$blockquote-border: $matrix-dark !default;
 $container-max-width: 1000px;
 
 @mixin media-max-width($max-width) {
@@ -53,6 +53,11 @@ li {
   line-height: 1.4;
 }
 
+::selection {
+  background: $matrix-green;
+  color: $matrix-bg;
+}
+
 /* Header, <header>
    header   - container
    h1       - project name
@@ -62,7 +67,7 @@ li {
 header {
   background: rgba(0, 0, 0, 0.1);
   width: 100%;
-  border-bottom: 1px dashed $amber; //header;
+  border-bottom: 1px dashed $header; //header;
   padding: 20px 0;
   margin: 0 0 40px 0;
 }
@@ -72,11 +77,11 @@ header h1 {
   line-height: 1.5;
   margin: 0 0 0 -40px;
   font-weight: bold;
-  color: $amber; //$header;
+  color: $header; //$header;
   text-shadow:
     0 1px 1px rgba(0, 0, 0, 0.1),
-    0 0 5px rgba(255, 191, 0, 0.1),
-    0 0 10px rgba(255, 191, 0, 0.1);
+    0 0 5px rgba(63, 217, 127, 0.1),
+    0 0 10px rgba(63, 217, 127, 0.1);
   letter-spacing: -1px;
 
   @include media-max-width($container-max-width) {
@@ -92,7 +97,7 @@ header h1:before {
 header h2 {
   font-size: 18px;
   font-weight: 300;
-  color: $light-grey;
+  color: $matrix-dim;
 }
 
 nav {
@@ -124,41 +129,46 @@ h3,
 h4,
 h5,
 h6 {
-  font-weight: normal;
-  color: $header;
+  font-weight: bold;
+  color: $body-foreground;
   letter-spacing: -0.03em;
-  text-shadow:
-    0 1px 1px rgba(0, 0, 0, 0.1),
-    0 0 5px rgba(255, 191, 0, 0.1),
-    0 0 10px rgba(255, 191, 0, 0.1);
+
+  a {
+    color: inherit;
+    text-shadow: none;
+
+    &:hover {
+      color: $header;
+    }
+  }
 }
 
 main h1 {
-  font-size: 30px;
+  font-size: 32px;
 }
 
 main h2 {
-  font-size: 24px;
+  font-size: 26px;
 }
 
 main h3 {
-  font-size: 18px;
+  font-size: 20px;
 }
 
 main h4 {
-  font-size: 16px;
+  font-size: 18px;
 }
 
 main h5 {
-  font-size: 12px;
+  font-size: 14px;
   text-transform: uppercase;
   margin: 0 0 5px 0;
 }
 
 main h6 {
-  font-size: 12px;
+  font-size: 14px;
   text-transform: uppercase;
-  color: $light-grey;
+  color: $matrix-dim;
   margin: 0 0 5px 0;
 }
 
@@ -171,7 +181,7 @@ ul li {
   list-style-type: ">> ";
 
   &::marker {
-    color: $amber;
+    color: $header;
   }
 }
 
@@ -182,15 +192,17 @@ blockquote {
 }
 
 code:not(pre code) {
-  background: #2b2c2f;
+  background: $matrix-surface;
   // border: 1px solid rgba(255, 255, 255, 0.15);
   padding: 0px 3px;
   margin: 0px -3px;
-  color: $bouquet;
+  color: $matrix-text;
   border-radius: 2px;
 }
 
 pre {
+  background-color: $matrix-surface !important; // override highlighting theme background
+  border: 1px solid $matrix-dark;
   padding: 1rem;
   overflow: auto;
   border-radius: 2px;
@@ -221,7 +233,7 @@ pre {
 
   mark {
     display: block;
-    background-color: rgba(254, 252, 232, 0.9);
+    background-color: rgba(63, 217, 127, 0.15);
   }
 }
 
@@ -231,7 +243,7 @@ table {
 }
 
 th {
-  border-bottom: 1px dashed $amber;
+  border-bottom: 1px dashed $header;
   padding: 5px 10px;
 }
 
@@ -242,8 +254,8 @@ td {
 hr {
   height: 0;
   border: 0;
-  border-bottom: 1px dashed $amber;
-  color: $amber;
+  border-bottom: 1px dashed $header;
+  color: $header;
 }
 
 /* Buttons
@@ -260,11 +272,9 @@ hr {
   );
   padding: 8px 18px;
   border-radius: 50px;
-  border: 2px solid rgba(0, 0, 0, 0.7);
-  border-bottom: 2px solid rgba(0, 0, 0, 0.7);
-  border-top: 2px solid rgba(0, 0, 0, 1);
-  color: rgba(255, 255, 255, 0.8);
-  font-family: Helvetica, Arial, sans-serif;
+  border: 1px solid $matrix-dark;
+  color: $matrix-green;
+  font-family: inherit;
   // font-weight: bold;
   font-size: 14px;
   text-decoration: none;
@@ -280,6 +290,7 @@ hr {
     rgba(10, 10, 10, 0.8) 50%,
     rgba(0, 0, 0, 0.8)
   );
+  border-color: $matrix-green;
 }
 
 .btn .icon {
@@ -300,8 +311,8 @@ hr {
 */
 
 a {
-  color: #63c0f5;
-  text-shadow: 0 0 5px rgba(104, 182, 255, 0.5);
+  color: $matrix-green;
+  text-shadow: 0 0 5px rgba(63, 217, 127, 0.2);
   outline: none;
   text-decoration: none;
 }
@@ -310,7 +321,7 @@ main,
 footer {
   a:hover,
   a:active {
-    text-shadow: 0 0 5px rgba(104, 182, 255, 1);
+    text-shadow: 0 0 8px rgba(63, 217, 127, 0.6);
   }
 
   a.btn:hover,
@@ -328,8 +339,8 @@ footer {
   &:hover {
     text-shadow:
       0 1px 1px rgba(0, 0, 0, 0.3),
-      0 0 5px rgba(255, 191, 0, 0.3),
-      0 0 10px rgba(255, 191, 0, 0.3);
+      0 0 5px rgba(63, 217, 127, 0.3),
+      0 0 10px rgba(63, 217, 127, 0.3);
   }
 }
 
@@ -341,13 +352,18 @@ footer {
 }
 
 .page-info span {
-  font-weight: normal;
-  color: $amber;
+  font-weight: bold;
+  color: $body-foreground;
   letter-spacing: -0.03em;
-  text-shadow:
-    0 1px 1px rgba(0, 0, 0, 0.1),
-    0 0 5px rgba(255, 191, 0, 0.1),
-    0 0 10px rgba(255, 191, 0, 0.1);
+
+  a {
+    color: inherit;
+    text-shadow: none;
+
+    &:hover {
+      color: $header;
+    }
+  }
 }
 
 .comments {
@@ -357,7 +373,7 @@ footer {
 .pages > .page {
   padding-bottom: 2em;
   margin-bottom: 1.8em;
-  border-bottom: 1px dashed $amber;
+  border-bottom: 1px dashed $header;
 }
 
 .pages > .page:last-child {
@@ -387,7 +403,7 @@ footer {
   margin-left: 1.5rem;
 
   a {
-    color: $light-grey;
+    color: $matrix-dim;
   }
 }
 
@@ -418,8 +434,8 @@ time.page-time {
 .pagination {
   padding-top: 20px;
   text-align: center;
-  border-top: 1px dashed $amber;
-  color: $amber;
+  border-top: 1px dashed $header;
+  color: $header;
 
   .previous-page {
     margin-right: 2em;
@@ -439,7 +455,7 @@ footer {
 }
 
 .copyright {
-  color: $light-grey;
+  color: $matrix-dim;
   display: block;
   margin-top: 15px;
   font-size: 14px;
@@ -451,7 +467,7 @@ footer {
   code {
     padding: 2px 4px;
     font-size: 90%;
-    color: #c7254e;
+    color: $matrix-green;
     background-color: black;
     border-radius: 4px;
     font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
@@ -463,7 +479,7 @@ footer {
 
   a:hover code,
   a:active code {
-    text-shadow: 0 0 5px #99092d;
+    text-shadow: 0 0 5px $matrix-green;
   }
 }
 
@@ -480,7 +496,7 @@ textarea {
   border: 1px solid rgba(255, 255, 255, 0.15);
   padding: 10px;
   font-size: 16px;
-  color: $amber;
+  color: $header;
   border-radius: 2px;
   resize: none;
   margin-bottom: 6px;
@@ -490,7 +506,7 @@ input[type="text"]:focus,
 input[type="email"]:focus,
 textarea:focus {
   outline: none;
-  border: 1px solid $chelsea-cucumber;
+  border: 1px solid $matrix-green;
 }
 
 :not(output):user-invalid {
