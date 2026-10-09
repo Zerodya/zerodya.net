@@ -59,6 +59,24 @@
     </time>
   </div>
   {%- endif %}
+  {%- if page.relative_path is starting_with(pat="posts/") and page.toc and not page.extra.no_toc %}
+  <details class="toc">
+    <summary>Table of contents</summary>
+    <ul>
+      {%- for h in page.toc %}
+      <li><a href="#{{ h.id }}">{{ h.title }}</a>
+        {%- if h.children %}
+        <ul>
+          {%- for c in h.children %}
+          <li><a href="#{{ c.id }}">{{ c.title }}</a></li>
+          {%- endfor %}
+        </ul>
+        {%- endif %}
+      </li>
+      {%- endfor %}
+    </ul>
+  </details>
+  {%- endif %}
   <div class="entry">
     {{ page.content | safe }}
   </div>
