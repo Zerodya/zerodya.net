@@ -16,6 +16,7 @@ $container-max-width: 1000px;
 }
 
 :root {
+  scrollbar-color: $matrix-dark $matrix-bg;
   color-scheme: dark; // otherwise browsers paint an opaque background behind dark iframes (giscus)
 }
 
@@ -98,6 +99,11 @@ header h1:before {
   font-size: 24px;
 }
 
+header h1:after {
+  content: "_";
+  animation: cursor-blink 1.2s steps(1) infinite;
+}
+
 header h2 {
   font-size: 18px;
   font-weight: 300;
@@ -112,9 +118,15 @@ nav {
   margin: 30px 0 20px 0;
 }
 
-// Terminal-style menu: "> " prompt and a blinking cursor on hover, prompt kept on the current page
-.nav-link {
-  font-size: 17px;
+@mixin glow-strong {
+  color: $matrix-glow;
+  text-shadow:
+    0 0 6px rgba(63, 217, 127, 0.8),
+    0 0 14px rgba(63, 217, 127, 0.4);
+}
+
+// Terminal-style link: "> " prompt and a blinking cursor on hover
+@mixin terminal-link {
   color: $header;
   text-shadow: 0 0 6px rgba(63, 217, 127, 0.35);
   transition: text-shadow 0.2s, color 0.2s;
@@ -129,21 +141,17 @@ nav {
     visibility: hidden;
   }
 
-  &:hover,
-  &.active {
-    color: $matrix-glow;
-    text-shadow:
-      0 0 6px rgba(63, 217, 127, 0.8),
-      0 0 14px rgba(63, 217, 127, 0.4);
+  &:hover {
+    @include glow-strong;
 
     &::before {
       visibility: visible;
     }
-  }
 
-  &:hover::after {
-    visibility: visible;
-    animation: cursor-blink 1s steps(1) infinite;
+    &::after {
+      visibility: visible;
+      animation: cursor-blink 1s steps(1) infinite;
+    }
   }
 }
 
@@ -154,8 +162,22 @@ nav {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .nav-link:hover::after {
-    animation: none;
+  * {
+    animation: none !important;
+  }
+}
+
+// Menu keeps the prompt on the current page
+.nav-link {
+  @include terminal-link;
+  font-size: 17px;
+
+  &.active {
+    @include glow-strong;
+
+    &::before {
+      visibility: visible;
+    }
   }
 }
 
@@ -254,6 +276,7 @@ code:not(pre code) {
 pre {
   background-color: $matrix-surface !important; // override highlighting theme background
   border: 1px solid $matrix-dark;
+  box-shadow: 0 0 12px rgba(63, 217, 127, 0.06);
   padding: 1rem;
   overflow: auto;
   border-radius: 2px;
@@ -426,6 +449,24 @@ footer {
     color: $header;
     font-weight: bold;
     cursor: pointer;
+    list-style: none;
+    transition: text-shadow 0.2s, color 0.2s;
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+
+    &::before {
+      content: "[+] ";
+    }
+
+    &:hover {
+      @include glow-strong;
+    }
+  }
+
+  &[open] summary::before {
+    content: "[-] ";
   }
 
   ul {
@@ -478,6 +519,12 @@ footer {
     width: 100%;
     border: 1px solid $matrix-dark;
     box-sizing: border-box;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .page-thumb:hover img {
+    border-color: $header;
+    box-shadow: 0 0 14px rgba(63, 217, 127, 0.3);
   }
 
   @media screen and (max-width: 568px) {
@@ -501,8 +548,9 @@ footer {
   }
 
   .read-more {
-    text-transform: uppercase;
+    @include terminal-link;
     margin-left: 15px;
+    margin-right: -1ch; // keep the text flush right despite the reserved cursor space
   }
 }
 
@@ -557,6 +605,14 @@ time.page-time {
 
   .next-page {
     margin-left: 2em;
+  }
+
+  a:hover {
+    @include glow-strong;
+  }
+
+  span {
+    color: $matrix-dark;
   }
 }
 
