@@ -31,7 +31,7 @@
 {% endcomponent get_edit_url %}
 
 {%- component page_timestamp(page, config) -%}
-Posted on {{ page.date | date(format=config.extra.timeformat | default(value="%B %e, %Y at %H:%M %Z"), timezone=config.extra.timezone | default(value="America/New_York")) }}
+Posted on {{ page.date | date(format=config.extra.timeformat | default(value="%B %e, %Y"), timezone=config.extra.timezone | default(value="America/New_York")) }}
 {%- endcomponent page_timestamp %}
 
 {%- component seo(

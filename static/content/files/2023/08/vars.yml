@@ -1,0 +1,95 @@
+---
+    # The bare domain name which represents your Matrix identity.
+    # Matrix user ids for your server will be of the form (`@user:<matrix-domain>`).
+    #
+    # Note: this playbook does not touch the server referenced here.
+    # Installation happens on another server ("matrix.<matrix-domain>").
+    #
+    # If you've deployed using the wrong domain, you'll have to run the Uninstalling step,
+    # because you can't change the Domain after deployment.
+    #
+    # Example value: example.com
+    matrix_domain: <insert_domain>
+    
+    # The Matrix homeserver software to install.
+    # See:
+    #  - `roles/custom/matrix-base/defaults/main.yml` for valid options
+    # - the `docs/configuring-playbook-IMPLEMENTATION_NAME.md` documentation page, if one is available for your implementation choice
+    matrix_homeserver_implementation: synapse
+    
+    # A secret used as a base, for generating various other secrets.
+    # You can put any string here, but generating a strong one is preferred (e.g. `pwgen -s 64 1`).
+    matrix_homeserver_generic_secret_key: '<create_secretkey>'
+
+    # Specify reverse proxy
+    matrix_playbook_reverse_proxy_type: playbook-managed-traefik
+
+    # Disable the web-secure (port 443) endpoint, which also disables SSL certificate retrieval
+    devture_traefik_config_entrypoint_web_secure_enabled: false
+
+    devture_traefik_container_web_host_bind_port: "127.0.0.1:81"
+    devture_traefik_config_entrypoint_web_forwardedHeaders_insecure: true
+    devture_traefik_additional_entrypoints_auto:
+      - name: matrix-federation
+        port: 8449
+        host_bind_port: "127.0.0.1:8449"
+        config: {}
+
+    # Disable integrated Coturn server
+    matrix_coturn_enabled: false
+
+    # Disable installing Element
+    matrix_client_element_enabled: false
+
+    matrix_playbook_docker_installation_enabled: false
+    
+    # A Postgres password to use for the superuser Postgres user (called `matrix` by default).
+    #
+    # The playbook creates additional Postgres users and databases (one for each enabled service)
+    # using this superuser account.
+    devture_postgres_connection_password: '<create_secretkey>'
+    
+    matrix_synapse_ext_password_provider_shared_secret_auth_enabled: true
+    # matrix_synapse_ext_password_provider_shared_secret_auth_shared_secret: YOUR_SHARED_SECRET_GOES_HERE
+    matrix_synapse_ext_password_provider_shared_secret_auth_shared_secret: <create_secretkey>
+    
+    # Discord
+    matrix_mautrix_discord_enabled: false
+    
+    # Telegram
+    # You'll need to obtain API keys from https://my.telegram.org/apps and then enter the details below
+    matrix_mautrix_telegram_enabled: false
+    matrix_mautrix_telegram_api_id: YOUR_TELEGRAM_API_ID
+    matrix_mautrix_telegram_api_hash: YOUR_TELEGRAM_API_HASH
+    
+    # WhatsApp
+    matrix_mautrix_whatsapp_enabled: false
+    matrix_synapse_configuration_extension_yaml: |
+      experimental_features:
+        msc2716_enabled: true
+    matrix_mautrix_whatsapp_configuration_extension_yaml:
+      bridge:
+        history_sync:
+          backfill: true
+    
+    # Facebook Messenger
+    matrix_mautrix_facebook_enabled: false
+    
+    # Google Chat
+    matrix_mautrix_googlechat_enabled: false
+    
+    # Instagram 
+    matrix_mautrix_instagram_enabled: false
+    
+    # Twitter
+    matrix_mautrix_twitter_enabled: false
+    
+    # Signal
+    matrix_mautrix_signal_enabled: false
+    
+    # Linkedin
+    matrix_beeper_linkedin_enabled: false
+    
+    # IRC
+    matrix_heisenbridge_enabled: false
+    

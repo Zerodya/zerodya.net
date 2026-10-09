@@ -2,8 +2,4 @@
   {%- for item in config.extra.menu %}
   <a href="{{ get_url(path=item.url) | safe }}" class="btn">{{ item.name }}</a>
   {%- endfor %}
-  {%- set github = config.extra | get(key="github", default={}) %}
-  {%- if github.username %}
-  <a href="{{ 'https://github.com/' ~ github.username | safe }}" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
-  {%- endif %}
 </nav>

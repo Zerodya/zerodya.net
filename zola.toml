@@ -1,6 +1,6 @@
 base_url = "https://zerodya.net"
 title = "Zerodya"
-description = "Personal blog"
+description = ""
 author = "Zerodya"
 theme = "hacker"
 
@@ -25,9 +25,10 @@ opengraph = true
 edit_page = false
 
 menu = [
-  { url = "/about", name = "About" },
-  { url = "/contact", name = "Contact" },
-  { url = "/tags", name = "Tags" },
+  { url = "/", name = "~/posts" },
+  { url = "/whoami", name = "~/whoami" },
+  { url = "/contact", name = "~/contact" },
+  { url = "/repo", name = "~/repo" },
 ]
 
 social_links = [
