@@ -15,6 +15,10 @@ $container-max-width: 1000px;
   }
 }
 
+:root {
+  color-scheme: dark; // otherwise browsers paint an opaque background behind dark iframes (giscus)
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -363,6 +367,23 @@ footer {
     &:hover {
       color: $header;
     }
+  }
+}
+
+.toc {
+  border: 1px dashed $matrix-dark;
+  padding: 0.8em 1.2em;
+  margin-bottom: 2em;
+
+  summary {
+    color: $header;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  ul {
+    margin: 0.5em 0 0;
+    padding-left: 1.5em;
   }
 }
 

@@ -39,3 +39,19 @@ social_links = [
 [extra.github]
 username = "Zerodya"
 repo = "zerodya.net"
+
+# Comments on posts, stored as discussions in Zerodya/comments
+[extra.giscus]
+repo = "Zerodya/comments"
+repo_id = "R_kgDOHlibvQ"
+category = "Announcements"
+category_id = "DIC_kwDOHlibvc4CZDfq"
+mapping = "og:title" # matches the discussion titles from the old site
+strict = 0
+reactions_enabled = 1
+emit_metadata = 0
+input_position = "top"
+theme = "transparent_dark"
+lang = "en"
+loading = "lazy"
+crossorigin = "anonymous"
