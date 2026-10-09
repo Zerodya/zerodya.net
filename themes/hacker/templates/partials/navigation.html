@@ -1,5 +1,11 @@
 <nav id="navbar">
   {%- for item in config.extra.menu %}
-  <a href="{{ get_url(path=item.url) | safe }}" class="btn">{{ item.name }}</a>
+  {%- set path = current_path | default(value="") %}
+  {%- if item.url == "/" %}
+    {%- set active = path == "/" or path is starting_with(pat="/page/") or path is starting_with(pat="/posts/") %}
+  {%- else %}
+    {%- set active = path is starting_with(pat=item.url) %}
+  {%- endif %}
+  <a href="{{ get_url(path=item.url) | safe }}" class="nav-link{% if active %} active{% endif %}">{{ item.name }}</a>
   {%- endfor %}
 </nav>
