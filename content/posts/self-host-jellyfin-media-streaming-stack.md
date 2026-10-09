@@ -19,13 +19,13 @@ While these are not covered here, this guide will serve as a solid base if you e
 
 Now then, let's start!
 
-## Requirements
+# Requirements
 
 - Basic Linux and Docker (Docker Compose) knowledge
 - A Linux server (I recommend at least 4GB of RAM)
 - Enough storage to store your media
 
-## Media Stack
+# Media Stack
 
 All of the listed software is Free and Open Source.
 
@@ -37,7 +37,7 @@ All of the listed software is Free and Open Source.
 - **Jellyseerr** - webapp for users to discover and request movies and TV shows
 - **Bazarr** - scans available media and downloads subtitles for it
 
-### How does this work?
+## How does this work?
 
 - Users browse and discover movies and TV shows in Jellyseerr.
 - Once they request a movie or TV show, Jellyseerr sends a query to Radarr and Sonarr respectively, which finds movies/shows by scraping on The Movie Database (TMDb).
@@ -51,7 +51,7 @@ Here is a simplified flowchart I made which should explain this fairly easily:
 
 ![](/content/images/2022/08/mediastack-1.png)
 
-### Alternatives
+## Alternatives
 
 **Jackett alternative:** [Prowlarr](https://github.com/Prowlarr/Prowlarr).  
 Unfortunately I found that it lacked support of Torrent indexers for foreign languages and decided to go with Jackett.  
@@ -66,7 +66,7 @@ I tried [qBittorrent](https://github.com/linuxserver/docker-qbittorrent) before 
 
 I still encourage you to try these alternatives for yourself, especially because they may have gotten better since the time of writing this.
 
-## Setting up Docker
+# Setting up Docker
 
 You must have both [Docker](https://docs.docker.com/get-docker/) and [Docker Compose](https://docs.docker.com/compose/) installed on your server.
 
@@ -78,7 +78,7 @@ If you want to go with the latter, you can use this command:
 
     wget -qO- https://raw.githubusercontent.com/Zerodya/dockeraise/main/dockeraise.sh | bash
 
-## Creating the containers
+# Creating the containers
 
 Now that Docker is installed, it's time to actually create our containers.
 
@@ -240,7 +240,7 @@ In my case the server IP address is `192.168.1.120` so to access Jellyfin at por
 
 If you are hosting this on your local machine, it will be `localhost` instead. In this example you would have to navigate to `localhost:8096`.
 
-### Permissions
+## Permissions
 
 If you haven't noticed, the services in the `docker-compose.yml` files above have the `PUID=1000` and `PGID=1000` environment variables. This means that the directories used by the services should be both read-able and write-able by a user with UID and GID of 1000.
 
@@ -258,13 +258,13 @@ You can do this with the following command:
 
 NOTE: *Change `/srv/streaming-stack` and `/srv/downloading-stack` if you put your `docker-compose.yml` files in different directories.*
 
-## Configuration
+# Configuration
 
 Now that the services are up and running, we need to configure them so that they are able to work with each other in an automated way.
 
 Each service section contains a link to its own wiki in case you want to dig deeper into the possible configuration settings.
 
-### [Jellyfin](https://jellyfin.org/docs/)
+## [Jellyfin](https://jellyfin.org/docs/)
 
 Navigate to Jellyfin (port 8096) and you will be prompted with a quick setup tour.
 
@@ -287,7 +287,7 @@ Now create two more libraries, but instead of 'Movies' choose 'Shows' for both o
 For the TV Shows library choose the `/data/tvshows` folder.  
 For the Anime library choose the `/data/anime` folder and Japanese as the preferred language.
 
-### [Jackett](https://github.com/Jackett/Jackett/wiki)
+## [Jackett](https://github.com/Jackett/Jackett/wiki)
 
 Open Jackett (port 9117) and click on the `Add indexer` button. You will see a list of the indexers available:
 
@@ -297,7 +297,7 @@ Open Jackett (port 9117) and click on the `Add indexer` button. You will see a l
 
 Optional: Scroll down and set an admin password.
 
-### [Sonarr](https://wiki.servarr.com/en/sonarr) and [Radarr](https://wiki.servarr.com/en/radarr)
+## [Sonarr](https://wiki.servarr.com/en/sonarr) and [Radarr](https://wiki.servarr.com/en/radarr)
 
 Radarr is a fork of Sonarr so they are both very similar.  
 For this reason I will only show you how to configure Sonarr (port 8989), since mostly the same will also apply to Radarr (port 7878).
@@ -325,7 +325,7 @@ Save and repeat Step 2 for every indexer you added in Jackett.
 
 4\.  **Add authentication (Optional)** - Go to `Settings > General` and choose an authentication method in the Security section, then set username and password.
 
-### [Jellyseerr](https://github.com/Fallenbagel/jellyseerr)
+## [Jellyseerr](https://github.com/Fallenbagel/jellyseerr)
 
 Open Jellyseerr (port 5055) and you will be introduced with a quick-start tour. Choose to login with your Jellyfin account and type your username and password (email can be anything).
 
@@ -348,7 +348,7 @@ Once you finish the setup you will be able to freely configure Jellyseerr furthe
 
 All there's left to do is to give the newly made account credentials to your users so they can start making requests.
 
-### [Bazarr](https://wiki.bazarr.media/)
+## [Bazarr](https://wiki.bazarr.media/)
 
 Open Bazarr (port 6767) and follow these steps.
 
@@ -367,7 +367,7 @@ Insert username and password of your provider account (you have to create one on
 
 4\.  **Enable subtitles** -  On `Settings > Languages` you will find a section called 'Default Settings'. Here you can toggle 'Series' and/or 'Movies' based on if you want subtitles to be downloaded only for series or only for movies, or for both.
 
-## Maintaining
+# Maintaining
 
 The media stack is now ready and good to go. But one last thing to know before leaving is how to update the services in the future.
 
@@ -387,7 +387,7 @@ After updating it's also recommended to get rid of old images to save disk space
 
 ------------------------------------------------------------------------
 
-## Wrapping up
+# Wrapping up
 
 Congratulations for making it this far! I hope that this guide introduced you to the world of self-hosting, or, if you were already familiar with it, that you could learn something new from it.
 

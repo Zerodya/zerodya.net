@@ -9,13 +9,13 @@ Do your chats look [like this](https://xkcd.com/1810/)? Do you always forget whi
 
 If you answered yes to any of those question: good news! In the following guide I'm going to show you how to use Matrix to achieve your dream of an all-in-one chat app, by using Matrix "bridges" (more on that later) and securing the connection with Cloudflare Tunnels.
 
-### Matrix
+## Matrix
 
 The Matrix protocol can communicate with other apps through "bridges", and this allows us to use a Matrix [compatible app](https://matrix.org/ecosystem/clients/) to chat with everyone else across every other app.
 
 Self-hosting a Matrix server isn't exactly known for being a walk in the park. This guide is aimed towards intermediate and advanced self-hosters. However we will self-host it using the [matrix-docker-ansible-deploy](https://github.com/spantaleev/matrix-docker-ansible-deploy) playbook on Github, which makes the installation and the maintenance much easier - so don't fret! I will break things down as best as I can, so hopefully it will be as easy as stealing candy from a baby (don't do that!).
 
-### Bridges
+## Bridges
 
 But what even is a Matrix bridge?  
 Simply put, it's a connection between Matrix and other platforms that allows Matrix to exchange messages and other data with them.
@@ -26,7 +26,7 @@ Below you can find more info about which ones are available and what chat featur
 
 [Bridges](https://matrix.org/ecosystem/bridges/) - Matrix, the open protocol for secure decentralised communications
 
-## The setup
+# The setup
 
 In this guide I will show you how to self-host your own secure Matrix server using an [Ansible Playbook](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_intro.html), that we will first configure on a local machine, and then deploy on our server through an SSH connection.
 
@@ -50,7 +50,7 @@ I will also show you how to implement the latest bleeding-edge [Sliding sync](ht
 
 </details>
 
-### Requirements
+## Requirements
 
 - A domain
 - A Cloudflare account (free tier)
@@ -61,7 +61,7 @@ I will also show you how to implement the latest bleeding-edge [Sliding sync](ht
 
 > Remember to change \<example.com\> with your own domain wherever it appears in this guide.
 
-## Ssh setup
+# Ssh setup
 
 For this guide I'm assuming you already have your main [domain added to Cloudflare](https://developers.cloudflare.com/learning-paths/get-started/#add-a-domain-to-cloudflare).
 
@@ -86,7 +86,7 @@ If everything went well, you should be able to ssh into your server with `ssh ro
 
 Now all the ssh traffic to your server will be going securely through Cloudflare - congratulations!! You are free to block open SSH ports in your firewall.
 
-### Key-based auth
+## Key-based auth
 
 Now that we can ssh into our server through Cloudflare, we are going to do that without the need to use a password. Let's implement a [key-based authentication](https://www.redhat.com/sysadmin/key-based-authentication-ssh)!
 
@@ -104,7 +104,7 @@ Now you should be able to ssh into your server without being asked for the passw
 
     ssh root@matrix-ssh.<example.com>
 
-## Configure the Playbook
+# Configure the Playbook
 
 On your local computer. clone the [matrix-docker-ansible-deploy](https://github.com/spantaleev/matrix-docker-ansible-deploy) Github repository, and move inside it:
 
@@ -115,7 +115,7 @@ This is the directory from where we will configure our playbook - and also upgra
 
 Before proceeding, install `ansible`, `just` and `pwgen` on your local computer, which you will need later.
 
-### Hosts
+## Hosts
 
 Create the file `hosts` inside the `inventory` directory, and copy the following content:
 
@@ -137,7 +137,7 @@ When you're done, test the connection to the server using Ansible on your local 
 
     ansible -i inventory/hosts all -m ping -v
 
-### Variables
+## Variables
 
 Create the directory `inventory/host_vars/matrix.<example.com>`:
 
@@ -255,7 +255,7 @@ The bridges in the file above aren't all of the available ones. Here is the [ful
 
 Note that I have disabled [TURN](https://matrix-org.github.io/synapse/latest/turn-howto.html) with `matrix_coturn_enabled: false` because I won't be using voice/video calls. Enabling it is possible, but you’d have to expose your server from outside of Cloudflare.
 
-## Installation
+# Installation
 
 Once you're happy with the configuration, you're ready to finally deploy your installation to the server!
 
@@ -265,7 +265,7 @@ On your local computer, inside the `matrix-docker-ansible-deploy` directory, run
 
 This will take a while. In the meantime you can already proceed to the next step.
 
-### Hostnames
+## Hostnames
 
 We are going to expose the Matrix Client (local port 81) and the Matrix Server (local port 8449) services through Cloudflare Tunnels. However, since each hostname can only point to a single service, we’ll trick the Matrix Server into thinking that it is running on the same hostname as the Matrix Client.
 
@@ -279,7 +279,7 @@ Create a `matrix-fed.<example.com>` hostname for the Matrix Server and point it 
 
 By overriding the HTTP Host Header, when a server connects to `matrix-fed.example.com`, our Matrix Server will be served `matrix.example.com`.
 
-### Account creation
+## Account creation
 
 When the installation finishes, you can proceed to create your account by running the following command on your local computer, with your username (`<insert_username`) and password (`<your_password>`) of choice.
 
@@ -293,7 +293,7 @@ Go ahead and test it by logging in to a Matrix client, for example:
 2.  Click Edit and insert `https://matrix.<example.com>`, then click Continue
 3.  Sign in with your username and password created above
 
-## Federation
+# Federation
 
 We have created `matrix-fed.<example.com>`, but now we need a way to tell other servers to connect to it. As stated in the [Matrix Specification](https://spec.matrix.org/latest/server-server-api/#server-discovery), We need to implement server discovery by adding two [well-known](https://en.wikipedia.org/wiki/Well-known_URI) files at the root of our main domain.
 
@@ -320,7 +320,7 @@ At [`https://<example.com>/.well-known/matrix/server`](https://example.com/.well
 
 Change \<example.com\> with your own domain.
 
-### Cloudflare Workers
+## Cloudflare Workers
 
 If you already have an application running on your main domain, and can't serve files there, you can use Cloudflare Workers with custom routes to dynamically reply to those requests.
 
@@ -366,7 +366,7 @@ Once you're done, verify that the well-known files are available in their respec
 
 If everything went smoothly... congratulations! You can now find and chat with other Matrix users, as well as join rooms on different servers. Feel free to [send me a message](https://matrix.to/#/@zerodya:zerodya.net) to celebrate.
 
-## Bridges
+# Bridges
 
 Now to enable the bridges you installed:
 
@@ -379,7 +379,7 @@ Now to enable the bridges you installed:
 
 You can find the bots names in their respective documentation in [this list](https://github.com/spantaleev/matrix-docker-ansible-deploy#bridges)
 
-## Sliding sync (Optional)
+# Sliding sync (Optional)
 
 Sliding sync is the latest Matrix proxy which allows to sync messages even faster. It is currently still experimental and it requires a client that supports it.
 
@@ -435,7 +435,7 @@ When you're done, just re-run the installation again (`just setup-all`) and your
 
 To test it, just try to login using the Element X app or by inserting the proxy URL above in the Sliding sync Labs option of a compatible web client.
 
-## Updating
+# Updating
 
 To upgrade services in the future, inside your `matrix-docker-ansible-deploy` directory, run:
 
@@ -449,7 +449,7 @@ If you want to be notified when new versions of Synapse are released, you can jo
 
 ------------------------------------------------------------------------
 
-##### Special thanks:
+### Special thanks:
 
 [matrix-docker-ansible-deploy](https://github.com/spantaleev/matrix-docker-ansible-deploy) - for the Ansible playbook
 
