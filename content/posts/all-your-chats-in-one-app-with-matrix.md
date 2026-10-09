@@ -2,6 +2,9 @@
 title = "All your chats in one app - Self-host Matrix with Bridges and Cloudflare"
 date = 2023-08-20
 aliases = ["/all-your-chats-in-one-app-with-matrix/"]
+
+[extra]
+images = ["/content/images/2023/08/matrix-thumbnail-1.png"]
 +++
 
 Do your chats look [like this](https://xkcd.com/1810/)? Do you always forget which contacts use which apps? Do you wish there was a way to have all your chats in just one place?

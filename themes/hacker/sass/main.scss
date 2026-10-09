@@ -406,6 +406,48 @@ footer {
   border-bottom: none;
 }
 
+.page-top {
+  display: flex;
+  gap: 2em;
+  align-items: center;
+  margin-bottom: 2em;
+
+  .page-heading {
+    flex: 2 1 0;
+    min-width: 0;
+
+    .page-info {
+      margin-bottom: 0;
+    }
+  }
+
+  .page-thumb {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+
+  .page-thumb img {
+    display: block;
+    width: 100%;
+    border: 1px solid $matrix-dark;
+    box-sizing: border-box;
+  }
+
+  @media screen and (max-width: 568px) {
+    flex-direction: column-reverse; // thumbnail above the title on phones
+    align-items: stretch;
+    gap: 1em;
+  }
+}
+
+.post-thumb {
+  display: block;
+  max-width: 100%;
+  box-sizing: border-box;
+  margin: 0 auto 2em;
+  border: 1px solid $matrix-dark;
+}
+
 .page {
   .page-footer {
     text-align: right;

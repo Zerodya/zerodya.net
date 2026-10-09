@@ -2,6 +2,9 @@
 title = "Self-host an automated Jellyfin media streaming stack"
 date = 2022-08-22
 aliases = ["/self-host-jellyfin-media-streaming-stack/"]
+
+[extra]
+images = ["/content/images/2022/10/jellyseerr-homepage-1.png"]
 +++
 
 Self-hosting a media stack on your own personal server gives you full privacy and complete control over your data.

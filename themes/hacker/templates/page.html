@@ -59,6 +59,10 @@
     </time>
   </div>
   {%- endif %}
+  {%- set images = page.extra | get(key="images", default=[]) %}
+  {%- if images %}
+  <img class="post-thumb" src="{{ get_url(path=images[0]) | safe }}" alt="">
+  {%- endif %}
   {%- if page.relative_path is starting_with(pat="posts/") and page.toc and not page.extra.no_toc %}
   <details class="toc">
     <summary>Table of contents</summary>
