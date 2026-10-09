@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{%- block seo %}
+  {{- super() }}
+  {%- set title = term.name ~ " tag" %}
+  {%- set description = "List of pages tagged with " ~ term.name %}
+
+  {%- if config.title %}
+    {%- set title_addition = title_separator ~ config.title %}
+  {%- else %}
+    {%- set title_addition = "" %}
+  {%- endif %}
+
+  {{<seo config current_url current_path title title_addition description is_page={true} />}}
+{%- endblock seo %}
+
+{% block content %}
+<div class="pages">
+  <h2>[ {{ term.name }} ]</h2>
+  {% for page in term.pages %}
+    {{<page_in_list page config />}}
+  {%- endfor %}
+</div>
+{% endblock %}

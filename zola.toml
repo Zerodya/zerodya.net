@@ -1,0 +1,40 @@
+base_url = "https://zerodya.net"
+title = "Zerodya"
+description = "Personal blog"
+author = "Zerodya"
+theme = "hacker"
+
+compile_sass = true
+minify_html = true
+generate_feeds = true
+
+taxonomies = [{ name = "tags" }]
+
+[markdown]
+bottom_footnotes = true
+render_emoji = true
+
+[markdown.highlighting]
+theme = "dark-plus"
+
+[extra]
+title_separator = "|"
+language_code = "en-US"
+timezone = "Europe/Rome"
+opengraph = true
+edit_page = false
+
+menu = [
+  { url = "/about", name = "About" },
+  { url = "/contact", name = "Contact" },
+  { url = "/tags", name = "Tags" },
+]
+
+social_links = [
+  { platform = "github", user_id = "Zerodya" },
+  { platform = "feed", user_id = true },
+]
+
+[extra.github]
+username = "Zerodya"
+repo = "zerodya.net"
