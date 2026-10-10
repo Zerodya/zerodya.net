@@ -1,0 +1,7 @@
+<!doctype html>
+<meta charset="utf-8">
+{#- Script-free redirect so it works under the site's Content-Security-Policy -#}
+<title>Redirect</title>
+<link rel="canonical" href="{{ url | safe }}">
+<meta http-equiv="refresh" content="0; url={{ url | safe }}">
+<p><a href="{{ url | safe }}">Click here</a> to be redirected.</p>
