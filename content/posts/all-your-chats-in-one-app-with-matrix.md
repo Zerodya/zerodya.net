@@ -1,7 +1,6 @@
 +++
 title = "All your chats in one app - Self-host Matrix with Bridges and Cloudflare"
 date = 2023-08-20
-aliases = ["/all-your-chats-in-one-app-with-matrix/"]
 
 [extra]
 images = ["/content/images/2023/08/matrix-thumbnail-1.png"]

@@ -1,7 +1,6 @@
 +++
 title = "Hello, World!"
 date = 2022-06-30
-aliases = ["/hello-world/"]
 +++
 
 > Edit (October 20, 2026): Please note that the following information is mostly outdated since my server setup has changed since this post. You can read how things are going now in [Hello again, World!](@/posts/hello-again-world.md)
