@@ -4,7 +4,7 @@ date = 2022-06-30
 aliases = ["/hello-world/"]
 +++
 
-> Edit (October 9, 2026): Please note that the following information is mostly outdated since my server setup has changed since this post.
+> Edit (October 20, 2026): Please note that the following information is mostly outdated since my server setup has changed since this post. You can read how things are going now in [Hello again, World!](@/posts/hello-again-world.md)
 
 Welcome friend! This website is self-hosted in my personal homelab! What that means is that it lives inside a server in my house (who would've thought).
 <!--more-->
